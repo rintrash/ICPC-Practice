@@ -1,8 +1,5 @@
 //COMPLETE: had to look at solution
 package PNW2016;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class T2016 {
@@ -19,7 +16,6 @@ public class T2016 {
         scan.nextLine();
 
         grid = new char[rows][cols];
-        //List<int[]> cloudPos = new ArrayList<int[]>();
         //build grid
         for(int i = 0; i < rows; i++) {
             String str = scan.nextLine();
