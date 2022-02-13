@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+//COMPLETED: outside test
 public class N2019 {
     public static void main (String[]args) {
         //top left rectangle is black
