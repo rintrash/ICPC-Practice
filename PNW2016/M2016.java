@@ -1,39 +1,53 @@
-//INCOMPLETE
+//INCOMPLETE: need help
 package PNW2016;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class M2016 {
     public static void main (String[] args) {
-        //I have to find number of added letters or deleted to make alphabetical
-
-        //I should first check if it is alphabetical
+  
+        //Map<Character, Integer> map = new HashMap<>(); 
         Scanner scan = new Scanner(System.in);
         String str = scan.nextLine();
 
-        int count = 0;
-        while(!isAlpha(str)){
-            
-        }
+        int count = getCount(str);
 
         System.out.println(count);
     }
 
-    public static boolean isAlpha(String s) {
-        Map<Character, Integer> map = new HashMap<>(); 
-        if(s.length() < 26) {
-            return false; 
+    public static int getCount(String s) {
+        if(s.length() == 0) {
+            return 26;
+        } else if(s.length() == 1) {
+            return 25;
         }
 
-        for(int j = 97; j < 123; j++) {
-            for(int i = 0; i < s.length(); i++) {
-                if(s.charAt(i) == j) { //it's one of the letters 
-                    
-                } 
-            }     
+        StringBuilder str = new StringBuilder(s); 
+        int nextIndex = 0; 
+        while(nextIndex != str.length() - 1) { //hasn't iterated to the last num
+            char curr = str.charAt(0);
+            char next;
+            for(int i = 1; i < str.length(); i++) {
+                next = str.charAt(i);
+                nextIndex = i;  
+                if(curr >= next) { //if out of order 
+                    str.deleteCharAt(i - 1);
+                        break;
+                }
+                curr = next; 
+            }
         }
-        return true;
+        int count = 0;
+        System.out.println(str.toString());
+        for(char j = 'a'; j <= 'z'; j++) {
+            if(str.indexOf(String.valueOf(j)) == -1){ //not there
+                count++;
+            } 
+        }
+        return count;
     }
 }
