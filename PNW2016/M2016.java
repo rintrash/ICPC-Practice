@@ -1,4 +1,5 @@
 //INCOMPLETE: need help
+//I think the problem is im just finding a solution, but not the minimum number of inserts 
 package PNW2016;
 
 import java.util.ArrayList;
