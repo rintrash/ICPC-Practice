@@ -29,13 +29,10 @@ public class S2016 {
 
         scan.close();
 
-        //while(!blocked(grid, apples)) {
-          //  fall(grid, apples);
-        //}
-        fall(grid,apples);
-        fall(grid,apples);
-        fall(grid,apples);
-        fall(grid,apples);
+        while(!blocked(grid, apples)) {
+            fall(grid, apples);
+        }
+        
         System.out.println();
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < cols; j++) {
