@@ -1,3 +1,4 @@
+from itertools import combinations
 def combinePlates(wts):
         if(len(wts) == 0):
             return [[]]
@@ -18,20 +19,25 @@ str = input().split()
 barbellWts = [int(i) for i in str]
 str = input().split()
 plateWts = [int(i) for i in str]
-print(plateWts)
+#print(plateWts)
 #output different possible distinct weights
 #find all sums of plateWts that are same 
 #i need a set of some sort 
 
 plateCombos = combinePlates(plateWts) 
-#make dictionary of the key combos and sum values 
-plate_dict = {}
+plateCombos = [sum(i) for i in plateCombos]
+
+duplicate_sums = set()
 print(plateCombos)
-for c in plateCombos:
-    sumWts = sum(c)
-    if sumWts in plate_dict:
-        plate_dict[sumWts] = [c, plate_dict[sumWts]]
-    plate_dict[sum(c)] = c
+for s in plateCombos:
+    if plateCombos.count(s) > 1:
+        duplicate_sums.add(s)
 
-print(plate_dict)
+print(duplicate_sums)
 
+sumSet = set()
+for b in barbellWts:
+    for s in duplicate_sums:
+        sumSet.add(b + s)
+
+print(sumSet)       
