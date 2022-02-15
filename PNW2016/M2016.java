@@ -12,9 +12,10 @@ public class M2016 {
     public static void main (String[] args) {
   
         //Map<Character, Integer> map = new HashMap<>(); 
-        Scanner scan = new Scanner(System.in);
-        String str = scan.nextLine();
-
+        
+        //Scanner scan = new Scanner("abc");
+        //String str = scan.nextLine();
+        String str = "abc";
         int count = getCount(str);
 
         System.out.println(count);
@@ -28,11 +29,27 @@ public class M2016 {
         }
 
         StringBuilder str = new StringBuilder(s); 
+        int minIndex = 0;
+        for(char c = 'a'; c <= 'z'; c++) {
+            minIndex = str.indexOf(String.valueOf(c));
+            if(minIndex != -1) {
+                break;
+            }
+        }
+
+        int maxIndex = str.length() - 1;
+        for(char ch = 'z'; ch >= 'a'; ch--) {
+            maxIndex = str.lastIndexOf(String.valueOf(ch));
+            if(maxIndex != -1) {
+                break;
+            }
+        }
+
         int nextIndex = 0; 
         while(nextIndex != str.length() - 1) { //hasn't iterated to the last num
             char curr = str.charAt(0);
             char next;
-            for(int i = 1; i < str.length(); i++) {
+            for(int i = minIndex + 1; i <= maxIndex; i++) {
                 next = str.charAt(i);
                 nextIndex = i;  
                 if(curr >= next) { //if out of order 
