@@ -15,7 +15,7 @@ public class M2016 {
         
         //Scanner scan = new Scanner("abc");
         //String str = scan.nextLine();
-        String str = "abc";
+        String str = "aiemckgobjfndlhp";
         int count = getCount(str);
 
         System.out.println(count);
@@ -28,6 +28,7 @@ public class M2016 {
             return 25;
         }
 
+        //xyzabsdofk...w
         StringBuilder str = new StringBuilder(s); 
         int minIndex = 0;
         for(char c = 'a'; c <= 'z'; c++) {
@@ -40,21 +41,23 @@ public class M2016 {
         int maxIndex = str.length() - 1;
         for(char ch = 'z'; ch >= 'a'; ch--) {
             maxIndex = str.lastIndexOf(String.valueOf(ch));
-            if(maxIndex != -1) {
+            if(maxIndex != -1 && maxIndex > minIndex) {
                 break;
             }
         }
+
+        str.substring(minIndex, maxIndex);
 
         int nextIndex = 0; 
         while(nextIndex != str.length() - 1) { //hasn't iterated to the last num
             char curr = str.charAt(0);
             char next;
-            for(int i = minIndex + 1; i <= maxIndex; i++) {
+            for(int i = 1; i < str.length(); i++) {
                 next = str.charAt(i);
                 nextIndex = i;  
                 if(curr >= next) { //if out of order 
                     str.deleteCharAt(i - 1);
-                        break;
+                    break;
                 }
                 curr = next; 
             }
