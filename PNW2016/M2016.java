@@ -2,73 +2,34 @@
 //I think the problem is im just finding a solution, but not the minimum number of inserts 
 package PNW2016;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
+import java.util.*; 
 public class M2016 {
     public static void main (String[] args) {
-  
-        //Map<Character, Integer> map = new HashMap<>(); 
-        
-        //Scanner scan = new Scanner("abc");
-        //String str = scan.nextLine();
-        String str = "aiemckgobjfndlhp";
+        String str = "zabcz";
         int count = getCount(str);
 
         System.out.println(count);
     }
 
-    public static int getCount(String s) {
-        if(s.length() == 0) {
-            return 26;
-        } else if(s.length() == 1) {
-            return 25;
-        }
-
-        //xyzabsdofk...w
-        StringBuilder str = new StringBuilder(s); 
-        int minIndex = 0;
-        for(char c = 'a'; c <= 'z'; c++) {
-            minIndex = str.indexOf(String.valueOf(c));
-            if(minIndex != -1) {
-                break;
+    public static int getCount(String str) {
+        int[] bestArr = new int[str.length()]; //array of all longest substring lengths
+        for(int i = 0; i < str.length(); i++) {
+            int best = 1; //starts at 1 because the substring will be at least 1 
+            for(int j = 0; j < i; j++) { //< i to go through all variations 
+                if(str.charAt(i) > str.charAt(j) && bestArr[j] + 1 > best) { //if in order and longer substring
+                    best = bestArr[j] + 1; //increments best when in order
+                } 
             }
+            bestArr[i] = best; //update bestArray to either be 1 or increment 1 if new best
         }
 
-        int maxIndex = str.length() - 1;
-        for(char ch = 'z'; ch >= 'a'; ch--) {
-            maxIndex = str.lastIndexOf(String.valueOf(ch));
-            if(maxIndex != -1 && maxIndex > minIndex) {
-                break;
+        int max = 0;
+        for(int b = 0; b < bestArr.length; b++) {
+            if(bestArr[b] > max) {
+                max = bestArr[b];
             }
-        }
+        } 
 
-        str.substring(minIndex, maxIndex);
-
-        int nextIndex = 0; 
-        while(nextIndex != str.length() - 1) { //hasn't iterated to the last num
-            char curr = str.charAt(0);
-            char next;
-            for(int i = 1; i < str.length(); i++) {
-                next = str.charAt(i);
-                nextIndex = i;  
-                if(curr >= next) { //if out of order 
-                    str.deleteCharAt(i - 1);
-                    break;
-                }
-                curr = next; 
-            }
-        }
-        int count = 0;
-        System.out.println(str.toString());
-        for(char j = 'a'; j <= 'z'; j++) {
-            if(str.indexOf(String.valueOf(j)) == -1){ //not there
-                count++;
-            } 
-        }
-        return count;
+        return 26 - max;
     }
 }
