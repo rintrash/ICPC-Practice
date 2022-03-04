@@ -1,62 +1,42 @@
-ins = [int(i) for i in input().split()]
-
-rows = ins[0]
-cols = ins[1]
+rows = 5
+cols = 4
 grid = []
 
 for i in range(rows):
-    row = [int(i) for i in input()]
-    grid.append(row)
+    grid.append([int(i) for i in input()])
 
-visited = []
-queue = []
-def getNeighbors(node, rows, cols, num):
+def getNeighbors(num, node):
     neighbors = []
-    if node[0] - num >= 0:
-        neighbors.append((node[0] - num, node[1]))
-    if node[1] - num >= 0:
-        neighbors.append((node[0], node[1] - num))
-    if node[0] + num < rows:
-        neighbors.append((node[0] + num, node[1]))
-    if node[1] + num < cols:
-        neighbors.append((node[0], node[1] + num))
+    nums = [-(num), num]
+    for i in nums:
+        if node[0] + i >= 0 and node[0] + i < rows:
+            neighbors.append((node[0] + i, node[1]))
+        if node[1] + i >= 0 and node[1] + i < cols:
+            neighbors.append((node[0], node[1] + i))
     return neighbors
-
-def bfs(visited, grid, start, goal):
-    
-    visited.append(start)
-    queue.append(start)
-    
-    parent = {}
-    parent[start] = None
-
+def bfs(start, goal):
+    visited = [start]
+    queue = [start]
     path_found = False
-    step_list = []
-    while len(queue) != 0: 
-        current = queue.pop()
-        if current == goal:
-            path_found = True
-            next = goal
-            steps = 0
-            while parent[next] is not None:
-                next = parent[next]
-                steps += grid[next[0]][next[1]]
-            step_list.append(steps)
+    step = {}
+    step[start] = 0
 
-        neighbors = getNeighbors(current, rows, cols, grid[current[0]][current[1]])
-        for n in neighbors:
-            if n not in visited:
-                visited.append(n)
-                queue.append(n)
-                parent[n] = current #parent of the neighbor is the current node
+    while len(queue) != 0:
+        curr = queue.pop(0) 
+        if curr == goal:
+            path_found = True
+            break
+        neighbors = getNeighbors(grid[curr[0]][curr[1]], curr)
+        for neighbor in neighbors:
+            if neighbor not in visited:
+                queue.append(neighbor)
+                visited.append(neighbor)
+                step[neighbor] = step[curr] + 1
     
-    if path_found:
-        step_list = step_list.sort()
-        print(step_list)
-        return step_list[0]
+    if path_found is True:
+        return step[goal]
     else:
-        return "IMPOSSIBLE" 
-    
-steps = bfs(visited, grid, (0,0), (rows - 1, cols - 1))
-print(steps)
+        return "IMPOSSIBLE"
+            
+print(bfs((0,0), (rows - 1, cols - 1)))
 
