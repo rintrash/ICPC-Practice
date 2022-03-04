@@ -1,8 +1,7 @@
-num = int( input())
-numS = str(num+1)
+#COMPLETED in time 4hr 52min left
+num = str(int(input()) + 1)
 
-while ("0" in numS):
-    num += 1
-    numS = str(num)
-  
-print(numS)
+while "0" in num:
+    num = str(int(num) + 1)
+
+print(num)
